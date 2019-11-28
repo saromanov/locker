@@ -10,10 +10,11 @@ type trivial struct {
 
 // New generate a try lock
 func New() lock.Locker {
-	var l *trivial
-	l.c = make(chan struct{}, 1)
-	l.c <- struct{}{}
-	return l
+	c := make(chan struct{}, 1)
+	c <- struct{}{}
+	return &trivial {
+		c: c,
+	}
 }
 
 // Lock provides locking of the data
