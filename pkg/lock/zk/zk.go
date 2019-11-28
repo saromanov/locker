@@ -12,8 +12,8 @@ type zkLock struct {
 	client *zk.Conn
 }
 
-func New() lock.Locker {
-	c, _, err := zk.Connect([]string{"127.0.0.1"}, time.Second)
+func New(conf *lock.Config) lock.Locker {
+	c, _, err := zk.Connect([]string{conf.Address}, time.Second)
 	if err != nil {
 		fmt.Println("unable to connect to ZooKeeper")
 		return nil

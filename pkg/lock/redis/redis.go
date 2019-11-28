@@ -16,9 +16,9 @@ type redisLock struct {
 	client *redis.Client
 }
 
-func New() *lock.Locker {
+func New(conf lock.Config) *lock.Locker {
 	client := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
+		Addr:     conf.Address,
 		Password: "",
 		DB:       0,
 	})
