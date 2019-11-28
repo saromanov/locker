@@ -8,9 +8,9 @@ type trivial struct {
 	c chan struct{}
 }
 
-// NewLock generate a try lock
-func NewLock() lock.Locker {
-	var l trivial
+// New generate a try lock
+func New() lock.Locker {
+	var l *trivial
 	l.c = make(chan struct{}, 1)
 	l.c <- struct{}{}
 	return l
