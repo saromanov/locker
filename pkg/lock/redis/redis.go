@@ -3,6 +3,7 @@ package redis
 import (
 	"fmt"
 	"time"
+
 	"github.com/go-redis/redis"
 	"github.com/saromanov/locker/pkg/lock"
 )
@@ -16,7 +17,7 @@ type redisLock struct {
 	client *redis.Client
 }
 
-func New(conf lock.Config) lock.Locker {
+func New(conf *lock.Config) lock.Locker {
 	client := redis.NewClient(&redis.Options{
 		Addr:     conf.Address,
 		Password: "",
