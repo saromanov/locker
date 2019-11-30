@@ -3,7 +3,7 @@ package zk
 import (
 	"fmt"
 	"time"
-
+	log "github.com/sirupsen/logrus"
 	"github.com/samuel/go-zookeeper/zk"
 	"github.com/saromanov/locker/pkg/lock"
 )
@@ -15,7 +15,7 @@ type zkLock struct {
 func New(conf *lock.Config) lock.Locker {
 	c, _, err := zk.Connect([]string{conf.Address}, time.Second)
 	if err != nil {
-		fmt.Println("unable to connect to ZooKeeper")
+		log.WithError(err).Error("unable connect to ZooKeeper")
 		return nil
 	}
 	return &zkLock{
@@ -27,7 +27,7 @@ func (t *zkLock) Lock() bool {
 	l := zk.NewLock(t.client, "/lock", zk.WorldACL(zk.PermAll))
 	err := l.Lock()
 	if err != nil {
-		fmt.Println("unable to make Lock: %v", err)
+		log.WithError(err).WithField("lock", "ZooKeeper").Error("unable connect to make lock")
 		return false
 	}
 
