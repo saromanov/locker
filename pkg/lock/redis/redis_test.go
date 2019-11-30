@@ -8,6 +8,8 @@ import (
 )
 
 func TestLock(t *testing.T) {
-	l := New(&lock.Config{})
+	l := New(&lock.Config{
+		Address: "localhost:6379",
+	})
 	assert.Equal(t, l.Lock(), true)
 }
