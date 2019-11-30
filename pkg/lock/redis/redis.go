@@ -49,6 +49,6 @@ func (t *redisLock) Unlock() {
 	if err == nil && unlockSuccess > 0 {
 		log.WithField("lock", "redis").Info("lock is successed")
 	} else {
-		log.WithError(err).WithField("lock", "redis").Error("unable to apply lock")
+		log.WithField("lock", "redis").Error("unable to apply lock")
 	}
 }
